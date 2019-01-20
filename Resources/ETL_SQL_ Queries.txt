@@ -1,0 +1,98 @@
+create database if not exists trip_planner_db;
+
+use trip_planner_db;
+
+CREATE TABLE if not exists events (
+    `id` INTEGER AUTO_INCREMENT NOT NULL,
+    `Name` VARCHAR(100) CHARACTER SET utf8,
+    `Address` VARCHAR(400) CHARACTER SET utf8,
+    `Description` VARCHAR(400) CHARACTER SET utf8,
+    `Category` VARCHAR(100) CHARACTER SET utf8,
+    `Neighborhood` VARCHAR(200) CHARACTER SET utf8,
+    `Reviews` integer null,
+    `Date` date,
+    `Cost` integer,
+	`Lat` double,
+    `Lng` double,
+    primary key(id)
+);
+
+use trip_planner_db;
+CREATE TABLE if not exists attractions (
+    `id` INTEGER AUTO_INCREMENT NOT NULL,
+    `Name` VARCHAR(100) CHARACTER SET utf8,
+    `Address` VARCHAR(400) CHARACTER SET utf8,
+    `Description` VARCHAR(400) CHARACTER SET utf8,
+    `Category` VARCHAR(100) CHARACTER SET utf8,
+    `Neighborhood` VARCHAR(200) CHARACTER SET utf8,
+    `Reviews` integer null,
+    `Date` date,
+    `Cost` integer,
+	`Lat` double,
+    `Lng` double,
+    primary key(id)
+);
+
+use trip_planner_db;
+
+CREATE TABLE if not exists restaurants (
+    `id` INTEGER AUTO_INCREMENT NOT NULL,
+    `Name` VARCHAR(100) CHARACTER SET utf8,
+    `Address` VARCHAR(400) CHARACTER SET utf8,
+    `Description` VARCHAR(400) CHARACTER SET utf8,
+    `Category` VARCHAR(100) CHARACTER SET utf8,
+    `Neighborhood` VARCHAR(200) CHARACTER SET utf8,
+    `Reviews` integer null,
+    `Date` date,
+    `Cost` integer,
+    `Lat` double,
+    `Lng` double,
+    primary key(id)
+);
+
+
+#use trip_planner_db;
+#drop table events;
+#drop table attractions;
+#drop table restaurants;
+
+#Test Queries
+
+select *
+from events;
+
+select *
+from attractions;
+
+select *
+from restaurants;
+
+select distinct category
+from events;
+
+select *
+from events 
+union
+select * 
+from attractions
+union
+select *
+from restaurants
+order by Name;
+
+select * from
+(select *
+from events
+union 
+select *
+from attractions
+union 
+select * 
+from restaurants) as a
+where a.Reviews = 4
+or a.Reviews = 3
+order by a.Name;
+
+
+select * from (select * from events union select * from attractions union select * from restaurants) as a 
+where a.Cost = 4 AND a.Address IS NOT NULL order by a.Category ;
